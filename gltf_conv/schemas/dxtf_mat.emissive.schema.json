@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dxtf_mat.emissive.schema.json",
+  "title": "Material Emissive",
+  "type": "object",
+  "description": "Emissive texture properties.",
+  "properties": {
+    "texture": {
+      "description": "Path to the emissive texture relative to the textures directory, or \"$DEFAULT_EMISSIVE\". Must be an RGB texture encoded in BC1/3/7, BC6H may be supported. We recommend BC1 or BC7 and may or may not be SRGB. The alpha channel is ignored.",
+      "anyOf": [
+        { "type": "string", "pattern": "\\.dds$" },
+        { "const": "$DEFAULT_EMISSIVE" }
+      ]
+    },
+    "strength": {
+      "description": "RGB multiplier for the entire texture in linear space. TODO: consider tinting.",
+      "type": "array",
+      "items": { "type": "number", "minimum": 0.0 },
+      "minItems": 3,
+      "maxItems": 3
+    }
+  },
+  "required": [ "texture", "strength" ],
+  "additionalProperties": false
+}

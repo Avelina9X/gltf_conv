@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dxtf_mat.orm.schema.json",
+  "title": "Material ORM",
+  "type": "object",
+  "description": "Occlusion-Roughness-Metalness texture properties.",
+  "properties": {
+    "texture": {
+      "description": "Path to the ORM texture relative to the textures directory, or \"$DEFAULT_ORM\". Must be an RGB texture encoded in BC7_UNORM. Occlusion is stored in the red channel, Roughness in green, and Metalness in blue.",
+      "anyOf": [
+        { "type": "string", "pattern": "\\.dds$" },
+        { "const": "$DEFAULT_ORM" }
+      ]
+    },
+    "occlusion_strength": {
+      "description": "Occlusion strength multiplier. Modulates the red channel by `saturate(1.0-(1.0-r)*strength)`",
+      "type": "number",
+      "minimum": 0.0
+    },
+    "roughness_strength": {
+      "description": "Roughness strength multiplier. Modulates the green channel by `saturate(g*strength)`",
+      "type": "number",
+      "minimum": 0.0
+    },
+    "metalness_strength": {
+      "description": "Metalness strength multiplier. Modulates the blue channel by `saturate(b*strength)`",
+      "type": "number",
+      "minimum": 0.0
+    }
+  },
+  "required": [ "texture", "occlusion_strength", "roughness_strength", "metalness_strength" ],
+  "additionalProperties": false
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dxtf_mat.diffuse.schema.json",
+  "title": "Material Diffuse",
+  "type": "object",
+  "description": "Base colour texture properties.",
+  "properties": {
+    "texture": {
+      "description": "Path to the base colour texture relative to the textures directory, or \"$DEFAULT_DIFFUSE\". Must be an RGBA texture encoded in BC1/3/7. Recommended: BC1_UNORM_SRGB for OPAQUE, BC3_UNORM_SRGB for BLEND or MASK. Premultiplied alpha is currently not considered.",
+      "anyOf": [
+        { "type": "string", "pattern": "\\.dds$" },
+        { "const": "$DEFAULT_DIFFUSE" }
+      ]
+    },
+    "strength": {
+      "description": "RGBA multiplier for the entire texture in linear space. TODO: consider tinting.",
+      "type": "array",
+      "items": { "type": "number", "minimum": 0.0 },
+      "minItems": 4,
+      "maxItems": 4
+    }
+  },
+  "required": [ "texture", "strength" ],
+  "additionalProperties": false
+}

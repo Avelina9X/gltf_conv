@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "conv_spec.tex2dds_settings.schema.json",
+  "title": "GLTF Conversion Spec Tex2DDS Settings",
+  "type": "object",
+  "description": "Default tex2dds settings for different texture types. TODO: paramaterise and allow name matching.",
+  "patternProperties": {
+    ".*": {
+      "type": "object",
+      "properties": {
+        "srgb": { "$ref": "srgb_flags.schema.json" }
+      }
+    }
+  },
+  "required": [ "diffuse", "normal", "orm", "emissive" ]
+}

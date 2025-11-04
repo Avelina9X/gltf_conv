@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dxtf_mat.schema.json",
+  "title": "Material",
+  "type": "object",
+  "description": "Material shared by one or more primitives in one or more models.",
+  "properties": {
+    "diffuse" : { "$ref": "dxtf_mat.diffuse.schema.json" },
+    "normal": { "$ref": "dxtf_mat.normal.schema.json" },
+    "orm": { "$ref": "dxtf_mat.orm.schema.json" },
+    "emissive": { "$ref": "dxtf_mat.emissive.schema.json" },
+    "blend_mode": {
+      "description": "Blend mode type for alpha blending.",
+      "enum": [ "BLEND", "MASK", "OPAQUE" ]
+    },
+    "alpha_cutoff": {
+      "description": "Cutoff value for the MASK blend mode. May be ignored when alpha-to-coverage is used.",
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "double_sided": {
+      "description": "When true disables back face culling.",
+      "type": "boolean"
+    }
+  },
+  "required": [ "diffuse", "normal", "orm", "blend_mode", "double_sided" ],
+  "additionalProperties": false,
+  "if": {
+    "properties": { "blend_mode": { "const": "MASK" } }
+  },
+  "then": {
+    "required": [ "alpha_cutoff" ]
+  },
+  "else": {
+    "not": {
+      "required": [ "alpha_cutoff" ]
+    }
+  }
+}

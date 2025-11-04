@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dxtf_mat.normal.schema.json",
+  "title": "Material Normal",
+  "type": "object",
+  "description": "Tangent space normal map properties.",
+  "properties": {
+    "texture": {
+      "description": "Path to the normal map texture relative to the textures directory, or \"$DEFAULT_NORMAL\". Must be an RG texture encoded in BC5_UNORM. Uses the OpenGL convention for the green channel.",
+      "anyOf": [
+        { "type": "string", "pattern": "\\.dds$" },
+        { "const": "$DEFAULT_NORMAL" }
+      ]
+    },
+    "strength": {
+      "description": "Normal map scaling multiplier.",
+      "type": "number",
+      "minimum": 0.0
+    }
+  },
+  "required": [ "texture", "strength" ],
+  "additionalProperties": false
+}

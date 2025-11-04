@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "tex2dds.schema.json",
+  "title": "Tex2DDS",
+  "type": "object",
+  "description": "Tex2DDS transmission file.",
+  "properties": {
+    "output_path": {
+      "description": "Path to the resulting DDS texture.",
+      "type": "string",
+      "pattern": "\\.dds$"
+    },
+    "srgb": { "$ref": "srgb_flags.schema.json" },
+    "format": {
+      "description": "Output format to use for the resulting DDS texture.",
+      "enum": [
+        "BC1_UNORM", "BC1_UNORM_SRGB",
+        "BC3_UNORM", "BC3_UNORM_SRGB",
+        "BC4_UNORM",
+        "BC5_UNORM",
+        "BC6H_UF16",
+        "BC7_UNORM", "BC7_UNORM_SRGB"
+      ]
+    },
+    "resolution": {
+      "description": "Texture resolution. -1 represents original resolution in that dimension.",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          { "const": -1 },
+          { "type": "integer", "multipleOf": 4, "minimum": 4 }
+        ]
+      }
+    },
+    "channels": {
+      "description": "List of images and swizzles. Each item maps the swizzled image to a channel of the output texture.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "anyOf": [
+              { "type": "string",  "pattern": "(?i)\\.(png|jpg|jpeg|tga|tif|tiff)$" },
+              { "type": "null" }
+            ]
+          },
+          "src": {
+            "enum": [ "r", "g", "b", "a", "0", "1", "h" ]
+          }
+        },
+        "required": [ "file", "src" ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 4
+    }
+  },
+  "required": [ "output_path", "srgb", "format", "resolution", "channels" ],
+  "additionalProperties": false
+}

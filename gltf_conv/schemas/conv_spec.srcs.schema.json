@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "conv_spec.srcs.schema.json",
+  "title": "GLTF Conversion Spec Sources",
+  "type": "object",
+  "description": "A GLTF source file reference.",
+  "properties": {
+    "file": {
+      "description": "The filename of the GLTF file (without extension) relative to 'src_dir'",
+      "type": "string"
+    },
+    "name": {
+      "description": "An optional name to reference this prop within the prop group",
+      "type": "string"
+    },
+    "se": {
+      "description": "Maximum error when compressing and simplifying the meshes.",
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 0.01
+    },
+    "si": {
+      "description": "Target mesh/tri reduction ratio when compressing and simplifying the meshes.",
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 1.0
+    }
+  },
+  "required": [ "file" ],
+  "additionalProperties": false
+}

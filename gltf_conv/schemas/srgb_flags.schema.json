@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "srgb_flags.schema.json",
+  "title": "SRGB Flags",
+  "description": "SRGB interpretation for input images. TODO: better description.",
+  "enum": [ "FORCE_SRGB", "ASSUME_SRGB", "ASSUME_LINEAR", "FORCE_LINEAR" ]
+}

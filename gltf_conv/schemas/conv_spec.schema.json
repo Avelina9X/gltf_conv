@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "conv_spec.schema.json",
+  "title": "GLTF Conversion Spec",
+  "type": "object",
+  "description": "Specification file for GLTF to DXTF conversion.",
+  "properties": {
+    "name": {
+      "description": "The overall name of the resulting prop or prop collection",
+      "type": "string"
+    },
+
+    "src_dir": {
+      "description": "The relative directory of source files, relative to the CWD (which should be the location of this file).",
+      "type": "string"
+    },
+
+    "srcs": {
+      "description": "A list of specifiers and settings for each input GLTF source file.",
+      "type": "array",
+      "items": { "$ref": "conv_spec.srcs.schema.json" },
+      "minItems": 1
+    },
+    "out_dir": {
+      "description": "The relative directory to save artifacts, relative to the CWD (which should be the location of this file).",
+      "type": "string"
+    },
+
+    "tex2dds_settings": { "$ref": "conv_spec.tex2dds_settings.schema.json" },
+
+    "dx_textures_subdir" : {
+      "description": "The relative subdirectory to save textures, relative to 'out_dir'",
+      "type": "string",
+      "default": "textures"
+    },
+
+    "dx_materials_subdir": {
+      "description": "The relative subdirectory to save materials, relative to 'out_dir'",
+      "type": "string",
+      "default": "materials"
+    },
+
+    "material_spec_overrides": {
+      "description": "Contains overrides for DXSpec Materials. Each key must match an existing material name or '*' to override all materials. TODO: more complex override keys! TODO: actually include the fucking shcema.",
+      "type": "object"
+    }
+  },
+
+  "required": [ "name", "src_dir", "srcs", "out_dir", "tex2dds_settings" ],
+  "additionalProperties": false
+}
