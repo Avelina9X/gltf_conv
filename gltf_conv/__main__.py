@@ -78,17 +78,17 @@ def write_manifest( conv_spec: ConvSpec, gltf_srcs: list[GLTFSrc] ):
         'name': conv_spec.name,
         'textures_path': conv_spec.dx_textures_subdir,
         'materials_path': conv_spec.dx_materials_subdir,
-        'meshes' : []
+        'models' : []
     }
     for gltf_src in gltf_srcs:
-        manifest_dict['meshes'].append( { 'name': gltf_src.name, 'file': gltf_src.file + '.dxtf_mds' } )
+        manifest_dict['models'].append( { 'name': gltf_src.name, 'file': gltf_src.file + '.dxtf_mds' } )
     with open( manifest_path, 'w', encoding='utf-8' ) as f:
         validator = get_validator( 'dxtf_mdm.schema.json' )
         validator.validate( manifest_dict )
         json.dump( manifest_dict, f, indent=2 )
     ezlog.info( f'Wrote manifest to "{conv_spec.name}.dxtf_mdm"!' )
 
-def main( file_path: str, verbose: list[str], mesh_move: Literal['copy', 'move'] ):
+def main( file_path: str, verbose: list[str], model_move: Literal['copy', 'move'] ):
 
     # Load conversion spec
     conv_spec = ConvSpec.from_file( file_path )
@@ -190,7 +190,7 @@ if __name__ == '__main__':
     )
 
     arg_parser.add_argument( 'file', type=str, help='path to json file specifying conversion configuration.' )
-    arg_parser.add_argument( '-m', '--mesh', type=str, choices=[ 'copy', 'move' ], default='copy', help='if the compressed GLTF .bin should be copied or moved' )
+    arg_parser.add_argument( '-m', '--model', type=str, choices=[ 'copy', 'move' ], default='copy', help='if the compressed GLTF .bin should be copied or moved' )
 
     arg_parser.add_argument(
         '-v', '--verbose',
@@ -212,4 +212,4 @@ if __name__ == '__main__':
         help='prints the names of all schemas, or prints the specified schema to console' )
 
     arguments = arg_parser.parse_args()
-    main( arguments.file, arguments.verbose, arguments.mesh )
+    main( arguments.file, arguments.verbose, arguments.model )

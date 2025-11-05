@@ -26,6 +26,11 @@
       "minimum": 0.0,
       "maximum": 1.0,
       "default": 1.0
+    },
+    "merge": {
+      "description": "Merge level: 0 = no merging, 1 = merges nodes, 2 = merges instaces.",
+      "enum": [ 0, 1, 2 ],
+      "default": 0
     }
   },
   "required": [ "file" ],

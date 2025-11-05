@@ -17,7 +17,7 @@
       "description": "Relative path from this manifest to all materials.",
       "type": "string"
     },
-    "meshes": {
+    "models": {
       "description": "List of DXTF Model Structure files (.dxtf_mds)",
       "type": "array",
       "items": {
@@ -32,6 +32,6 @@
       "minItems": 1
     }
   },
-  "required": [ "name", "textures_path", "materials_path", "meshes" ],
+  "required": [ "name", "textures_path", "materials_path", "models" ],
   "additionalItems": false
 }
