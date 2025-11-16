@@ -130,7 +130,7 @@ class DXTF_Tex2DDS:
     channels: list[tuple[Path | None, str]]
     resolution: tuple[int, int]
 
-    def __init__( self, texture_path: str, texture_key: DXSpec_TextureKey, out_path: str, srgb: str ):
+    def __init__( self, texture_path: str, texture_key: DXSpec_TextureKey, out_path: str, srgb: str, invert_g: bool ):
         self.format = texture_key[1]
         self.output_path = Path( os.path.join( out_path, texture_path ) )
         self.resolution = texture_key[2]
@@ -139,7 +139,8 @@ class DXTF_Tex2DDS:
 
         for tex, swizzle in texture_key[0]:
             for s in swizzle:
-                self.channels.append( ( tex if s in 'rgba' else None, s ) )
+                c = 'G' if ( s == 'g' and invert_g ) else s
+                self.channels.append( ( tex if s in 'rgba' else None, c ) )
 
         expected_channels = format_get_channels( self.format )
 
@@ -187,7 +188,7 @@ class DXTF_Tex2DDS:
                 if '$' in k:
                     ezlog.warning( f'Skipping creation of DXTF_Tex2DDS for "{k}"' )
                 else:
-                    dxtf_tex2dds_db.append( cls( k, v, dx_textures_path, tex2dds_settings[key]['srgb'] ) )
+                    dxtf_tex2dds_db.append( cls( k, v, dx_textures_path, tex2dds_settings[key]['srgb'], tex2dds_settings[key].get( 'invert_g', False ) ) )
 
         if verbose:
             ezlog.debug( 'DDS textures:', dxtf_tex2dds_db )

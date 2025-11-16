@@ -57,8 +57,9 @@ class GLTF_Material:
     alpha_cutoff: Optional[float]
     double_sided: bool
 
-    def __init__( self, obj ):
-        self.name = obj[ 'name' ]
+    def __init__( self, obj, i ):
+        self.name = obj.get( 'name', str( i ) )
+        obj[ 'name' ] = self.name
         self.pbr_metallic_roughness = init( GLTF_PBRMetallicRoughness, obj, 'pbrMetallicRoughness' )
         self.normal_texture = init( GLTF_NormalTexture, obj, 'normalTexture' )
         self.occlusion_texture = init( GLTF_OcclusionTexture, obj, 'occlusionTexture' )

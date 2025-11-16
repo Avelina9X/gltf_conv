@@ -4,13 +4,27 @@
   "title": "GLTF Conversion Spec Tex2DDS Settings",
   "type": "object",
   "description": "Default tex2dds settings for different texture types. TODO: paramaterise and allow name matching.",
+
+  "properties": {
+    "normal": {
+      "type": "object",
+      "properties": {
+        "srgb": { "$ref": "srgb_flags.schema.json" },
+        "invert_g": { "type": "boolean" }
+      },
+      "required": [ "srgb", "invert_g" ]
+    }
+  },
+
   "patternProperties": {
     ".*": {
       "type": "object",
       "properties": {
         "srgb": { "$ref": "srgb_flags.schema.json" }
-      }
+      },
+      "required": [ "srgb" ]
     }
   },
+
   "required": [ "diffuse", "normal", "orm", "emissive" ]
 }

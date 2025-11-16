@@ -35,10 +35,10 @@ def parse_materials( gltf_srcs: list[GLTFSrc], conv_spec: ConvSpec ):
     for gltf_src in gltf_srcs:
         ezlog.info( f'Parsing {len(gltf_src.src_materials)} materials from {gltf_src.file}' )
         # Iterate over all materials in source
-        for mat_src in gltf_src.src_materials:
+        for i, mat_src in enumerate( gltf_src.src_materials ):
 
             # Create a GLTF Material instance
-            gltf_mat = GLTF_Material( mat_src )
+            gltf_mat = GLTF_Material( mat_src, i )
             mat_name = gltf_mat.name
 
             # If material not already in db create a DXSpec Material and add to material db
